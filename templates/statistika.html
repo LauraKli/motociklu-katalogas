@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistika pagal kategorijas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>📊 Statistika pagal kategorijas</h1>
+
+    <form action="{{ url_for('pagrindinis_puslapis') }}">
+        <button type="submit">⬅️ Grįžti atgal</button>
+    </form>
+
+    <div class="motociklas">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Kategorija</th>
+                    <th>Motociklų kiekis</th>
+                    <th>Vidutinė kaina (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kat, kiekis, vid_kaina in statistika %}
+                <tr>
+                    <td>{{ kat }}</td>
+                    <td>{{ kiekis }}</td>
+                    <td>{{ '%.2f'|format(vid_kaina) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

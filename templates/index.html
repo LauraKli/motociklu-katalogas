@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <title>Motociklų katalogas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Motociklų katalogas</h1>
+
+<form method="get" action="{{ url_for('pagrindinis_puslapis') }}">
+    <input type="text" name="search" placeholder="Ieškoti pagal modelį, gamintoją ar kategoriją" value="{{ paieska or '' }}">
+    <input type="text" name="metai_nuo" placeholder="Metai nuo" value="{{ metai_nuo or '' }}">
+    <input type="text" name="metai_iki" placeholder="Metai iki" value="{{ metai_iki or '' }}">
+    <input type="text" name="kaina_nuo" placeholder="Kaina nuo (€)" value="{{ kaina_nuo or '' }}">
+    <input type="text" name="kaina_iki" placeholder="Kaina iki (€)" value="{{ kaina_iki or '' }}">
+    <button type="submit">🔍 Filtruoti</button>
+    <a href="{{ url_for('pagrindinis_puslapis') }}">Išvalyti</a>
+</form>
+
+<div class="nuorodos">
+    <a href="{{ url_for('prideti_motocikla') }}">➕ Pridėti naują motociklą</a>
+    <a href="{{ url_for('statistika') }}">📊 Statistika</a>
+</div>
+
+{% if motociklai %}
+    {% for m in motociklai %}
+    <div class="kortele">
+        <img src="{{ url_for('static', filename=m.nuotrauka_url.split('static/')[-1]) }}" alt="{{ m.modelis }}">
+        <div class="info">
+            <h3>{{ m.modelis }}</h3>
+            <p><strong>Gamintojas:</strong> {{ m.gamintojas }}</p>
+            <p><strong>Kaina:</strong> €{{ m.kaina }}</p>
+            <p><strong>Pagaminimo metai:</strong> {{ m.pagaminimo_metai }}</p>
+            <p><strong>Galia:</strong> {{ m.galia_kw }} kW</p>
+            <p><strong>Kategorija:</strong> {{ m.kategorija.pavadinimas }}</p>
+            <p><strong>Aprašymas:</strong> {{ m.aprasymas }}</p>
+            <div class="veiksmai">
+                <a href="{{ url_for('redaguoti_motocikla', id=m.id) }}">✏️ Redaguoti</a>
+                <form method="post" action="{{ url_for('istrinti_motocikla', id=m.id) }}" onsubmit="return confirm('Ar tikrai ištrinti?')">
+                    <button type="submit">🗑️ Ištrinti</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p class="nerasta">🔍 Pagal jūsų paiešką rezultatų nerasta.</p>
+{% endif %}
+
+</body>
+</html>

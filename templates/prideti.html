@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <title>Pridėti motociklą</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Pridėti naują motociklą</h1>
+
+    <form method="post">
+
+        <label>Modelis:</label><br>
+        <input type="text" name="modelis" required><br><br>
+
+        <label>Kaina (€):</label><br>
+        <input type="number" name="kaina" step="100" min="0" required><br><br>
+
+        <label>Pagaminimo metai:</label><br>
+        <select name="metai" required>
+            {% for metai in range(2000, 2026) %}
+                <option value="{{ metai }}">{{ metai }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Gamintojas:</label><br>
+        <input type="text" name="gamintojas" required><br><br>
+
+        <label>Galia (kW):</label><br>
+        <input type="number" name="galia" step="0.5" min="1" required><br><br>
+
+        <label>Aprašymas:</label><br>
+        <textarea name="aprasymas" rows="4" cols="40"></textarea><br><br>
+
+        <label>Nuotraukos kelias (pvz. static/images/naujas.jpg):</label><br>
+        <input type="text" name="nuotrauka_url"><br><br>
+
+        <label>Kategorija:</label><br>
+        <select name="kategorija_id">
+            {% for kat in kategorijos %}
+                <option value="{{ kat.id }}">{{ kat.pavadinimas }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">💾 Išsaugoti</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('pagrindinis_puslapis') }}">⬅️ Grįžti į sąrašą</a>
+</body>
+</html>
