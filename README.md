@@ -50,7 +50,7 @@ motociklu-katalogas/
 1. Atsisiųskite arba klonuokite šį projektą iš GitHub:
 
 ```
-git clone https://github.com/TAVO_VARDAS/motociklu-katalogas.git
+git clone https://github.com/LauraKli/motociklu-katalogas.git
 cd motociklu-katalogas
 ```
 
